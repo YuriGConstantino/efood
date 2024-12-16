@@ -1,4 +1,47 @@
 import { Tag } from '../Tag'
-import { Card } from './styles'
+import {
+  Card,
+  Image,
+  Tags,
+  TitleContainer,
+  Rating,
+  Description,
+  Button
+} from './styles'
 
-export const Product = () => <Card></Card>
+import star from '../../assets/images/estrela.png'
+
+type Props = {
+  imagem: string
+  highlightTag?: string
+  categoryTag: string
+  title: string
+  rating: number
+  description: string
+}
+
+export const Product = ({
+  imagem,
+  highlightTag,
+  categoryTag,
+  title,
+  rating,
+  description
+}: Props) => (
+  <Card>
+    <Image src={imagem} alt={title} />
+    <Tags>
+      <Tag>{highlightTag}</Tag>
+      <Tag>{categoryTag}</Tag>
+    </Tags>
+    <TitleContainer>
+      <h4>{title}</h4>
+      <Rating>
+        {rating.toFixed(1)}
+        <img src={star} alt="" />
+      </Rating>
+    </TitleContainer>
+    <Description>{description}</Description>
+    <Button>Saiba Mais</Button>
+  </Card>
+)
