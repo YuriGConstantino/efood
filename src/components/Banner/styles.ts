@@ -1,0 +1,24 @@
+import styled from 'styled-components'
+import banner from '../../assets/images/Banner.png'
+import { colors } from '../../styles'
+
+export const BannerContainer = styled.div`
+  background-image: url(${banner});
+  height: 384px;
+  padding: 32px 0;
+  display: flex;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+`
+
+export const Text = styled.p`
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  width: 539px;
+`
