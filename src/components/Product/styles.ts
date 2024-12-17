@@ -7,6 +7,7 @@ export const Card = styled.div`
 `
 export const Image = styled.img`
   width: 100%;
+  height: 300px;
 `
 export const Tags = styled.div`
   position: absolute;
@@ -41,4 +42,5 @@ export const Button = styled.button`
   font-weight: bold;
   margin: 8px;
   padding: 4px 6px;
+  cursor: pointer;
 `
