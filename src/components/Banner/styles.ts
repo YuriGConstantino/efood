@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import banner from '../../assets/images/Banner.png'
-import { colors } from '../../styles'
 
 export const BannerContainer = styled.div`
   background-image: url(${banner});

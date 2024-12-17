@@ -13,7 +13,7 @@ import star from '../../assets/images/estrela.png'
 
 type Props = {
   imagem: string
-  highlightTag?: string
+  highlightTag: string
   categoryTag: string
   title: string
   rating: number
@@ -31,7 +31,7 @@ export const Product = ({
   <Card>
     <Image src={imagem} alt={title} />
     <Tags>
-      <Tag>{highlightTag}</Tag>
+      {highlightTag.length > 1 ? <Tag>{highlightTag}</Tag> : ''}
       <Tag>{categoryTag}</Tag>
     </Tags>
     <TitleContainer>

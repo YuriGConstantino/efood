@@ -1,6 +1,6 @@
 class Restaurant {
   image: string
-  highlightTag?: string
+  highlightTag: string
   categoryTag: string
   title: string
   rating: number
@@ -14,7 +14,7 @@ class Restaurant {
     rating: number,
     description: string,
     id: number,
-    highlightTag?: string
+    highlightTag: string
   ) {
     this.image = image
     this.highlightTag = highlightTag
