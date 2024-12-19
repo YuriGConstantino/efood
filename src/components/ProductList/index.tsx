@@ -7,7 +7,7 @@ type Props = {
 }
 
 export const ProdutcList = ({ restaurant }: Props) => (
-  <ProductsContainer className="container">
+  <ProductsContainer>
     <List>
       {restaurant.map((restaurant) => (
         <Product
