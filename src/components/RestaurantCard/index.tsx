@@ -20,7 +20,7 @@ type Props = {
   description: string
 }
 
-export const Product = ({
+export const RestaurantCard = ({
   imagem,
   highlightTag,
   categoryTag,

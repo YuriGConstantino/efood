@@ -1,16 +1,16 @@
 import Restaurant from '../../models/restaurant'
-import { Product } from '../Product'
-import { ProductsContainer, List } from './styles'
+import { RestaurantCard } from '../../components/RestaurantCard'
+import { RestaurantContainer, List } from './styles'
 
 type Props = {
   restaurant: Restaurant[]
 }
 
-export const ProdutcList = ({ restaurant }: Props) => (
-  <ProductsContainer>
+export const RestaurantList = ({ restaurant }: Props) => (
+  <RestaurantContainer>
     <List>
       {restaurant.map((restaurant) => (
-        <Product
+        <RestaurantCard
           key={restaurant.id}
           imagem={restaurant.image}
           highlightTag={restaurant.highlightTag}
@@ -21,5 +21,5 @@ export const ProdutcList = ({ restaurant }: Props) => (
         />
       ))}
     </List>
-  </ProductsContainer>
+  </RestaurantContainer>
 )

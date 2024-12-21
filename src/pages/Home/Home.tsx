@@ -1,9 +1,9 @@
-import { ProdutcList } from '../components/ProductList'
-import Restaurant from '../models/restaurant'
+import { RestaurantList } from '../../containers/RestaurantList'
+import Restaurant from '../../models/restaurant'
 
-import HiokiSushi from '../assets/images/Hioki_Sushi.png'
-import VitaTrattoria from '../assets/images/La_Dolce_Vita_Trattoria.png'
-import { Header } from '../components/Header'
+import HiokiSushi from '../../assets/images/Hioki_Sushi.png'
+import VitaTrattoria from '../../assets/images/La_Dolce_Vita_Trattoria.png'
+import { Header } from '../../containers/Header'
 
 const restaurants: Restaurant[] = [
   {
@@ -69,9 +69,9 @@ const restaurants: Restaurant[] = [
 ]
 export const Home = () => (
   <>
-    <Header />
+    <Header showRestaurantMenu={true} />
     <div className="container">
-      <ProdutcList restaurant={restaurants} />
+      <RestaurantList restaurant={restaurants} />
     </div>
   </>
 )

@@ -3,7 +3,6 @@ import banner from '../../assets/images/Banner.png'
 
 export const HeaderContainer = styled.div`
   background-image: url(${banner});
-  height: 384px;
   padding: 32px 0;
   display: flex;
 
@@ -20,4 +19,5 @@ export const Text = styled.p`
   font-weight: bold;
   text-align: center;
   width: 539px;
+  margin-top: 136px;
 `
