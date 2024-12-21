@@ -5,11 +5,11 @@ import {
   Tags,
   TitleContainer,
   Rating,
-  Description,
-  Button
+  Description
 } from './styles'
 
 import star from '../../assets/images/estrela.png'
+import { Button } from '../Button'
 
 type Props = {
   imagem: string
@@ -42,6 +42,8 @@ export const RestaurantCard = ({
       </Rating>
     </TitleContainer>
     <Description>{description}</Description>
-    <Button>Saiba Mais</Button>
+    <Button className="button" title="about" type="link" to="restaurant">
+      Saiba Mais
+    </Button>
   </Card>
 )

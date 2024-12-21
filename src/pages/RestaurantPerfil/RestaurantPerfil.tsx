@@ -2,7 +2,7 @@ import { Header } from '../../containers/Header'
 
 export const RestaurantPerfil = () => (
   <>
-    <Header showRestaurantMenu={false} />
+    <Header showRestaurantPerfil={true} />
     <div className="container"></div>
   </>
 )

@@ -69,7 +69,7 @@ const restaurants: Restaurant[] = [
 ]
 export const Home = () => (
   <>
-    <Header showRestaurantMenu={true} />
+    <Header showRestaurantPerfil={false} />
     <div className="container">
       <RestaurantList restaurant={restaurants} />
     </div>

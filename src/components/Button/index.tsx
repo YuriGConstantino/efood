@@ -1,25 +1,38 @@
-import { ButtonContainer, ButtonLink } from './styles'
+import { Link } from 'react-router'
 
 type Props = {
   type: 'button' | 'link'
   title: string
   to?: string
   onClick?: () => void
-  children: string
+  children: string | JSX.Element
+  className: string
 }
 
-export const Button = ({ type, title, to, onClick, children }: Props) => {
+export const Button = ({
+  type,
+  title,
+  to,
+  onClick,
+  children,
+  className
+}: Props) => {
   if (type === 'button') {
     return (
-      <ButtonContainer type="button" title={title} onClick={onClick}>
+      <button
+        type="button"
+        title={title}
+        onClick={onClick}
+        className={className}
+      >
         {children}
-      </ButtonContainer>
+      </button>
     )
   }
 
   return (
-    <ButtonLink to={to as string} title={title}>
+    <Link to={to as string} title={title} className={className}>
       {children}
-    </ButtonLink>
+    </Link>
   )
 }

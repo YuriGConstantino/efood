@@ -1,20 +1,35 @@
 import Logo from '../../assets/images/logo.png'
-import { HeaderContainer, Text } from './styles'
+import { HeaderContainer, HeaderContent, Text } from './styles'
+import { Button } from '../../components/Button'
 
 type Props = {
-  showRestaurantMenu: boolean
+  showRestaurantPerfil: boolean
 }
 
-export const Header = ({ showRestaurantMenu }: Props) => (
+export const Header = ({ showRestaurantPerfil }: Props) => (
   <HeaderContainer>
     <div className="container">
-      <h1>
-        <img src={Logo} alt="" />
-      </h1>
-      {showRestaurantMenu ? (
-        <Text>Viva experiências gastronômicas no conforto da sua casa</Text>
+      {showRestaurantPerfil ? (
+        <>
+          <h1>
+            <img src={Logo} alt="efood" />
+          </h1>
+          <HeaderContent>
+            <Button className="button" title="restaurnt" type="link" to={'/'}>
+              Restaurantes
+            </Button>
+            <Button className="button" title="cart" type="button">
+              <span className="buttonTxt">0 produto(s) no carrinho</span>
+            </Button>
+          </HeaderContent>
+        </>
       ) : (
-        <div>AAAAA</div>
+        <>
+          <h1>
+            <img src={Logo} alt="efood" />
+          </h1>
+          <Text>Viva experiências gastronômicas no conforto da sua casa</Text>
+        </>
       )}
     </div>
   </HeaderContainer>

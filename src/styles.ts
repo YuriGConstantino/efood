@@ -17,6 +17,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${colors.white};
     color: ${colors.red};
+    text-shadow: 2px 2px 7px rgb(0 0 0 / 40%);
   }
 
   .container {
