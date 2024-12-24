@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   DishButton,
   DishDescription,
@@ -7,28 +6,23 @@ import {
   DishName
 } from './styles'
 
-interface RestaurantDishesCardProps {
+type Props = {
   image: string
   name: string
   description: string
   buttonText: string
-  onButtonClick: () => void
-  key: string
 }
 
-export const RestaurantDishesCard: React.FC<RestaurantDishesCardProps> = ({
+export const RestaurantDishesCard = ({
   image,
   name,
   description,
-  buttonText,
-  onButtonClick
-}) => {
-  return (
-    <DishesCard>
-      <DishImage src={image} alt="Dish" />
-      <DishName>{name}</DishName>
-      <DishDescription>{description}</DishDescription>
-      <DishButton onClick={onButtonClick}>{buttonText}</DishButton>
-    </DishesCard>
-  )
-}
+  buttonText
+}: Props) => (
+  <DishesCard>
+    <DishImage src={image} alt="Dish" />
+    <DishName>{name}</DishName>
+    <DishDescription>{description}</DishDescription>
+    <DishButton>{buttonText}</DishButton>
+  </DishesCard>
+)

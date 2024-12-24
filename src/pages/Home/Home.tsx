@@ -1,12 +1,14 @@
 import { RestaurantList } from '../../containers/RestaurantList'
 import Restaurant from '../../models/restaurant'
 
-import HiokiSushi from '../../assets/images/Hioki_Sushi.png'
+import HiokiSushi from '../../assets/images/HiokiSushi.png'
 import VitaTrattoria from '../../assets/images/La_Dolce_Vita_Trattoria.png'
 import { Header } from '../../containers/Header'
 
 const restaurants: Restaurant[] = [
   {
+    name: 'Hioki Sushi',
+    type: 'Japonesa',
     image: HiokiSushi,
     categoryTag: 'Japonesa',
     title: 'Hioki Sushi',
@@ -17,6 +19,8 @@ const restaurants: Restaurant[] = [
     highlightTag: 'Destaque da Semana'
   },
   {
+    name: 'La Dolce Vita Trattoria',
+    type: 'Italiana',
     image: VitaTrattoria,
     categoryTag: 'Italiana',
     title: 'La Dolce Vita Trattoria',
@@ -24,46 +28,6 @@ const restaurants: Restaurant[] = [
     description:
       'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
     id: 2,
-    highlightTag: ''
-  },
-  {
-    image: VitaTrattoria,
-    categoryTag: 'Italiana',
-    title: 'La Dolce Vita Trattoria',
-    rating: 4.6,
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    id: 3,
-    highlightTag: ''
-  },
-  {
-    image: VitaTrattoria,
-    categoryTag: 'Italiana',
-    title: 'La Dolce Vita Trattoria',
-    rating: 4.6,
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    id: 4,
-    highlightTag: ''
-  },
-  {
-    image: VitaTrattoria,
-    categoryTag: 'Italiana',
-    title: 'La Dolce Vita Trattoria',
-    rating: 4.6,
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    id: 5,
-    highlightTag: ''
-  },
-  {
-    image: VitaTrattoria,
-    categoryTag: 'Italiana',
-    title: 'La Dolce Vita Trattoria',
-    rating: 4.6,
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    id: 6,
     highlightTag: ''
   }
 ]

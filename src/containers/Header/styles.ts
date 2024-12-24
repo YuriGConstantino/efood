@@ -6,6 +6,7 @@ export const HeaderContainer = styled.div`
   background-image: url(${banner});
   padding: 32px 0;
   display: flex;
+  font-size: 18px;
 
   .container {
     display: flex;
@@ -15,7 +16,6 @@ export const HeaderContainer = styled.div`
   }
 
   .button {
-    font-style: 18px;
     font-weight: bold;
     color: ${colors.red};
     background: transparent;
@@ -23,7 +23,7 @@ export const HeaderContainer = styled.div`
     text-decoration: none;
   }
   .buttonTxt {
-    font-style: 18px;
+    font-size: 18px;
     text-shadow: 2px 2px 7px rgb(0 0 0 / 40%);
     cursor: pointer;
   }

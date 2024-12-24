@@ -1,76 +1,26 @@
+import { Hero } from '../../components/Hero'
 import { RestaurantDishesCard } from '../../components/RestaurantDishesCard'
-import { DishesContainer, RestaurantMenuBanner } from './styles'
+import Perfil from '../../models/perfil'
+import { PerfilesContainer } from './styles'
 
-import dishImg from '../../assets/images/Hioki_Sushi.png'
+type Props = {
+  perfil: Perfil[]
+}
 
-const Dishes = [
-  {
-    image: dishImg,
-    name: 'Sushi de salmão',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente consequuntur eaque nesciunt placeat sequi.',
-    buttonText: 'Adicionar ao carrinho'
-  },
-  {
-    image: dishImg,
-    name: 'Sushi de salmão',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente consequuntur eaque nesciunt placeat sequi.',
-    buttonText: 'Adicionar ao carrinho'
-  },
-  {
-    image: dishImg,
-    name: 'Sushi de salmão',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente consequuntur eaque nesciunt placeat sequi.',
-    buttonText: 'Adicionar ao carrinho'
-  },
-  {
-    image: dishImg,
-    name: 'Sushi de salmão',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente consequuntur eaque nesciunt placeat sequi.',
-    buttonText: 'Adicionar ao carrinho'
-  },
-  {
-    image: dishImg,
-    name: 'Sushi de salmão',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente consequuntur eaque nesciunt placeat sequi.',
-    buttonText: 'Adicionar ao carrinho'
-  },
-  {
-    image: dishImg,
-    name: 'Sushi de salmão',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente consequuntur eaque nesciunt placeat sequi.',
-    buttonText: 'Adicionar ao carrinho'
-  }
-]
-
-export const RestaurentMenu = () => (
+export const RestaurentMenu = ({ perfil }: Props) => (
   <>
-    <RestaurantMenuBanner>
-      <div>
-        <div className="container">
-          <p>Japonesa</p>
-          <h2>Hioki Sushi</h2>
-        </div>
-      </div>
-    </RestaurantMenuBanner>
-    <DishesContainer className="container">
-      {Dishes.map((dish) => (
+    {/* <Hero key={perfil[0].id} type={perfil[0].type} title={perfil[0].title} /> */}
+
+    <PerfilesContainer className="container">
+      {perfil.map((perfil) => (
         <RestaurantDishesCard
-          name={dish.name}
-          image={dish.image}
-          description={dish.description}
-          buttonText={dish.buttonText}
-          key={dish.name}
-          onButtonClick={() => {
-            'Adicionar ao carrinho'
-          }}
+          key={perfil.id}
+          name={perfil.name}
+          image={perfil.image}
+          description={perfil.description}
+          buttonText={perfil.buttonText}
         />
       ))}
-    </DishesContainer>
+    </PerfilesContainer>
   </>
 )

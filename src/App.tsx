@@ -3,7 +3,8 @@ import { GlobalStyle } from './styles'
 
 import { Home } from './pages/Home/Home'
 import { Footer } from './containers/Footer'
-import { RestaurantPerfil } from './pages/RestaurantPerfil/RestaurantPerfil'
+import { RestaurantPerfil as Hiokisushi } from './pages/Hiokisushi/RestaurantPerfil/Hiokisushi'
+import { RestaurantPerfil as VitaTrattoria } from './pages/LaDolceVitaTrattoria/RestaurantPerfil/RestaurantPerfil'
 
 const router = createBrowserRouter([
   {
@@ -15,10 +16,18 @@ const router = createBrowserRouter([
     )
   },
   {
-    path: '/restaurant',
+    path: '/restaurant/HiokiSushi',
     element: (
       <>
-        <RestaurantPerfil />
+        <Hiokisushi />
+      </>
+    )
+  },
+  {
+    path: '/restaurant/LaDolceVitaTrattoria',
+    element: (
+      <>
+        <VitaTrattoria />
       </>
     )
   }

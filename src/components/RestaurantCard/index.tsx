@@ -42,7 +42,12 @@ export const RestaurantCard = ({
       </Rating>
     </TitleContainer>
     <Description>{description}</Description>
-    <Button className="button" title="about" type="link" to="restaurant">
+    <Button
+      className="button"
+      title="about"
+      type="link"
+      to={`/restaurant/${title.replace(/\s+/g, '')}`}
+    >
       Saiba Mais
     </Button>
   </Card>

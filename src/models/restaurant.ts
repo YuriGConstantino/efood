@@ -1,4 +1,6 @@
 class Restaurant {
+  name: string
+  type: string
   image: string
   highlightTag: string
   categoryTag: string
@@ -8,6 +10,8 @@ class Restaurant {
   id: number
 
   constructor(
+    name: string,
+    type: string,
     image: string,
     categoryTag: string,
     title: string,
@@ -16,6 +20,8 @@ class Restaurant {
     id: number,
     highlightTag: string
   ) {
+    this.name = name
+    this.type = type
     this.image = image
     this.highlightTag = highlightTag
     this.categoryTag = categoryTag
