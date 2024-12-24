@@ -9,8 +9,6 @@ type Props = {
 
 export const RestaurentMenu = ({ perfil }: Props) => (
   <>
-    {/* <Hero key={perfil[0].id} type={perfil[0].type} title={perfil[0].title} /> */}
-
     <PerfilesContainer className="container">
       {perfil.map((perfil) => (
         <RestaurantDishesCard
