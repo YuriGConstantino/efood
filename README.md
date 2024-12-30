@@ -13,3 +13,4 @@
 7) Criar um projeto na Vercel;
 
 8) Enviar o link do projeto publicado através da plataforma.
+

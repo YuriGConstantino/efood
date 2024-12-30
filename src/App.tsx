@@ -1,45 +1,16 @@
-import { createBrowserRouter, RouterProvider } from 'react-router'
+import { BrowserRouter } from 'react-router'
 import { GlobalStyle } from './styles'
 
-import { Home } from './pages/Home/Home'
 import { Footer } from './containers/Footer'
-import { RestaurantPerfil as Hiokisushi } from './pages/Hiokisushi/RestaurantPerfil/Hiokisushi'
-import { RestaurantPerfil as VitaTrattoria } from './pages/LaDolceVitaTrattoria/RestaurantPerfil/RestaurantPerfil'
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: (
-      <>
-        <Home />
-      </>
-    )
-  },
-  {
-    path: '/restaurant/HiokiSushi',
-    element: (
-      <>
-        <Hiokisushi />
-      </>
-    )
-  },
-  {
-    path: '/restaurant/LaDolceVitaTrattoria',
-    element: (
-      <>
-        <VitaTrattoria />
-      </>
-    )
-  }
-])
+import { RoutePath } from './routes'
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <GlobalStyle />
-      <RouterProvider router={router} />
+      <RoutePath />
       <Footer />
-    </>
+    </BrowserRouter>
   )
 }
 
