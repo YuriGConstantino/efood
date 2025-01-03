@@ -16,7 +16,7 @@ const Dishes = [
     image: dishImage,
     name: 'Pizza Maquerita',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente consequuntur eaque nesciunt placeat sequi.',
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     buttonText: 'Adicionar ao carrinho',
     id: 25
   },
@@ -24,7 +24,7 @@ const Dishes = [
     image: dishImage,
     name: 'Pizza Maquerita',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente consequuntur eaque nesciunt placeat sequi.',
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     buttonText: 'Adicionar ao carrinho',
     id: 24
   },
@@ -32,7 +32,7 @@ const Dishes = [
     image: dishImage,
     name: 'Pizza Maquerita',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente consequuntur eaque nesciunt placeat sequi.',
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     buttonText: 'Adicionar ao carrinho',
     id: 79
   },
@@ -40,7 +40,7 @@ const Dishes = [
     image: dishImage,
     name: 'Pizza Maquerita',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente consequuntur eaque nesciunt placeat sequi.',
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     buttonText: 'Adicionar ao carrinho',
     id: 8
   },
@@ -48,7 +48,7 @@ const Dishes = [
     image: dishImage,
     name: 'Pizza Maquerita',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente consequuntur eaque nesciunt placeat sequi.',
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     buttonText: 'Adicionar ao carrinho',
     id: 5
   },
@@ -56,7 +56,7 @@ const Dishes = [
     image: dishImage,
     name: 'Pizza Maquerita',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente consequuntur eaque nesciunt placeat sequi.',
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     buttonText: 'Adicionar ao carrinho',
     id: 58
   }
