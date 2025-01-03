@@ -5,11 +5,13 @@ import {
   Tags,
   TitleContainer,
   Rating,
-  Description
+  Description,
+  InfoContainer
 } from './styles'
 
 import star from '../../assets/images/estrela.png'
 import { Button } from '../Button'
+import { Link } from 'react-router'
 
 type Props = {
   imagem: string
@@ -34,21 +36,23 @@ export const RestaurantCard = ({
       {highlightTag.length > 1 ? <Tag>{highlightTag}</Tag> : ''}
       <Tag>{categoryTag}</Tag>
     </Tags>
-    <TitleContainer>
-      <h4>{title}</h4>
-      <Rating>
-        {rating.toFixed(1)}
-        <img src={star} alt="" />
-      </Rating>
-    </TitleContainer>
-    <Description>{description}</Description>
-    <Button
-      className="button"
-      title="about"
-      type="link"
-      to={`/restaurant/${title.replace(/\s+/g, '')}`}
-    >
-      Saiba Mais
-    </Button>
+    <InfoContainer>
+      <TitleContainer>
+        <h4>{title}</h4>
+        <Rating>
+          {rating.toFixed(1)}
+          <img src={star} alt="" />
+        </Rating>
+      </TitleContainer>
+      <Description>{description}</Description>
+      <Link
+        className="link"
+        title="about"
+        type="link"
+        to={`/restaurant/${title.replace(/\s+/g, '')}`}
+      >
+        Saiba Mais
+      </Link>
+    </InfoContainer>
   </Card>
 )

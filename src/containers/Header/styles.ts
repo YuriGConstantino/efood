@@ -24,7 +24,6 @@ export const HeaderContainer = styled.div`
   }
   .buttonTxt {
     font-size: 18px;
-    text-shadow: 2px 2px 7px rgb(0 0 0 / 40%);
     cursor: pointer;
   }
 `

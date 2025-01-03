@@ -9,8 +9,8 @@ export const DishesCard = styled.div`
   color: ${colors.beige};
 `
 export const DishImage = styled.img`
-  width: 300px;
-  height: 160px;
+  width: 304px;
+  height: 168px;
 `
 
 export const DishName = styled.h3`
@@ -25,13 +25,10 @@ export const DishDescription = styled.p`
 export const DishButton = styled.button`
   background-color: ${colors.beige};
   color: ${colors.red};
-  padding: 8px;
+  padding: 4px 8px;
   border: none;
   cursor: pointer;
   font-size: 14px;
+  font-weight: bold;
   margin-top: auto;
-  transition: 0.3s;
-  &:hover {
-    font-size: 15px;
-  }
 `

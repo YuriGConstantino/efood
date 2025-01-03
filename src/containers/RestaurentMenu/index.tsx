@@ -1,4 +1,3 @@
-import { Hero } from '../../components/Hero'
 import { RestaurantDishesCard } from '../../components/RestaurantDishesCard'
 import Perfil from '../../models/perfil'
 import { PerfilesContainer } from './styles'
