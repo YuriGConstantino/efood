@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import close from '../../assets/images/close 1.png'
+import close from '../../assets/images/close1.png'
 import {
   DishButton,
   DishDescription,

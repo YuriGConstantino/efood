@@ -1,6 +1,6 @@
 import { RootReducer } from '../../store'
 import { Container, CartContanier, ItemCard, RemoveBtn } from './styled'
-import trash from '../../assets/images/close_2.png'
+import trash from '../../assets/images/close2.png'
 import { Overlay } from '../../styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { close, remove } from '../../store/reducers/cart'
