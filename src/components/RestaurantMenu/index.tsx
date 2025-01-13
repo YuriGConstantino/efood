@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import close from '../../assets/images/close1.png'
 import {
   DishButton,
@@ -13,7 +14,6 @@ import {
   ModalInfos
 } from './styles'
 import { Overlay } from '../../styles'
-import { useDispatch } from 'react-redux'
 import { add } from '../../store/reducers/cart'
 
 type Props = {
