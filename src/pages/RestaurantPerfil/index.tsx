@@ -7,7 +7,6 @@ import { useGetRestaurantMenuQuery } from '../../services/api'
 export const RestaurantPerfil = () => {
   const { id } = useParams()
 
-  // eslint-disable-next-line
   const { data: restaurantPerfil } = useGetRestaurantMenuQuery(id!)
 
   if (restaurantPerfil) {
