@@ -48,6 +48,11 @@ export const RestaurantDishesCard = ({
     }).format(preco)
   }
 
+  const addCardAndCloseModal = () => {
+    addCart()
+    setShowModal(false)
+  }
+
   return (
     <>
       <DishesCard key={id}>
@@ -75,7 +80,11 @@ export const RestaurantDishesCard = ({
               alt="Fechar janela"
             />
             <p>{descricao}</p>
-            <ModalButton onClick={addCart} type="button" className="button">
+            <ModalButton
+              onClick={addCardAndCloseModal}
+              type="button"
+              className="button"
+            >
               {`Adicionar no carrinho - ${priceFormat(preco)}`}
             </ModalButton>
           </ModalInfos>
