@@ -1,9 +1,9 @@
+import { colors } from './../../styles'
 import styled from 'styled-components'
-import { colors } from '../../styles'
 
 export const Container = styled.div`
   display: none;
-
+  color: ${colors.beige};
   &.showCart {
     display: block;
   }
@@ -21,7 +21,6 @@ export const CartContanier = styled.aside`
   > p {
     display: flex;
     justify-content: space-between;
-    color: ${colors.beige};
     margin: 40px 0 16px;
     font-size: 14px;
     font-weight: 700;
@@ -42,6 +41,7 @@ export const CartContanier = styled.aside`
 export const ItemCard = styled.li`
   position: relative;
   background-color: ${colors.beige};
+  color: ${colors.red};
   padding: 8px 12px 8px;
   display: flex;
   margin-bottom: 16px;

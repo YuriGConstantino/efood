@@ -4,8 +4,11 @@ import trash from '../../assets/images/close2.png'
 import { Overlay } from '../../styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { close, remove } from '../../store/reducers/cart'
+import { useState } from 'react'
+import { Checkout } from '../Checkout'
 
 export const Cart = () => {
+  const [goCheckout, setGoCheckout] = useState(false)
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
 
   const dispatch = useDispatch()
@@ -28,31 +31,44 @@ export const Cart = () => {
     }, 0)
   }
   return (
-    <Container className={isOpen ? 'showCart' : ''}>
-      <Overlay onClick={closeCart} />
-      <CartContanier>
-        {items.length >= 1 ? (
-          <ul>
-            {items.map((items) => (
-              <ItemCard key={items.id}>
-                <img src={items.foto} alt={items.nome} />
-                <p>
-                  {items.nome} <span>{priceFormat(items.preco)}</span>
-                </p>
-                <RemoveBtn onClick={() => removeCart(items.id)}>
-                  <img src={trash} alt="Remover do carrinho" />
-                </RemoveBtn>
-              </ItemCard>
-            ))}
-          </ul>
+    <>
+      <Container className={isOpen ? 'showCart' : ''}>
+        <Overlay onClick={closeCart} />
+        {!goCheckout ? (
+          <CartContanier>
+            {items.length >= 1 ? (
+              <ul>
+                {items.map((items) => (
+                  <ItemCard key={items.id}>
+                    <img src={items.foto} alt={items.nome} />
+                    <p>
+                      {items.nome} <span>{priceFormat(items.preco)}</span>
+                    </p>
+                    <RemoveBtn onClick={() => removeCart(items.id)}>
+                      <img src={trash} alt="Remover do carrinho" />
+                    </RemoveBtn>
+                  </ItemCard>
+                ))}
+              </ul>
+            ) : (
+              <p>O carrinho está vazio</p>
+            )}
+            <p>
+              Valor total <span>{priceFormat(getTotalPrice())}</span>
+            </p>
+            <button onClick={() => setGoCheckout(true)}>
+              Continuar com a entrega
+            </button>
+          </CartContanier>
         ) : (
-          <p>O carrinho está vazio</p>
+          <CartContanier>
+            <Checkout />
+            <button onClick={() => setGoCheckout(false)}>
+              Voltar para o carrinho
+            </button>
+          </CartContanier>
         )}
-        <p>
-          Valor total <span>{priceFormat(getTotalPrice())}</span>
-        </p>
-        <button>Continuar com a entrega</button>
-      </CartContanier>
-    </Container>
+      </Container>
+    </>
   )
 }
