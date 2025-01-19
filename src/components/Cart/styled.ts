@@ -1,6 +1,10 @@
 import { colors } from './../../styles'
 import styled from 'styled-components'
 
+type InputGroup = {
+  inputWidth?: string
+}
+
 export const Container = styled.div`
   display: none;
   color: ${colors.beige};
@@ -18,6 +22,19 @@ export const CartContanier = styled.aside`
   width: 100%;
   background-color: ${colors.red};
   z-index: 1;
+
+  h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
   > p {
     display: flex;
     justify-content: space-between;
@@ -74,5 +91,39 @@ export const RemoveBtn = styled.button`
   img {
     width: 16px;
     height: 16px;
+  }
+`
+
+export const ButtonContainer = styled.div`
+  width: 100%;
+  margin-top: 8px;
+  button {
+    width: 100%;
+    background-color: ${colors.beige};
+    border: none;
+    color: ${colors.red};
+    font-size: 14px;
+    font-weight: 700;
+    padding: 4px;
+    cursor: pointer;
+    margin-bottom: 8px;
+  }
+`
+export const InputFild = styled.div<InputGroup>`
+  display: ${(props) => (props.inputWidth ? 'inline-block' : 'block')};
+  width: ${(props) => (props.inputWidth ? '' : '100%')};
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+  }
+  input {
+    width: ${(props) => props.inputWidth || '100%'};
+    background-color: ${colors.beige};
+    height: 32px;
+    padding: 0 8px;
+    margin-bottom: 8px;
+    border: 1px solid ${colors.beige};
   }
 `

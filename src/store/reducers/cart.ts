@@ -4,11 +4,13 @@ import { Cardapio } from '../../pages/Home'
 type CartState = {
   items: Cardapio[]
   isOpen: boolean
+  openCheckout: boolean
 }
 
 const initialState: CartState = {
   items: [],
-  isOpen: false
+  isOpen: false,
+  openCheckout: false
 }
 
 const cartSlice = createSlice({
@@ -31,10 +33,13 @@ const cartSlice = createSlice({
     },
     close: (state) => {
       state.isOpen = false
+    },
+    checkout: (state) => {
+      state.openCheckout = false
     }
   }
 })
 
-export const { add, remove, open, close } = cartSlice.actions
+export const { add, remove, open, close, checkout } = cartSlice.actions
 
 export default cartSlice.reducer
