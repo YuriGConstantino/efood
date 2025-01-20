@@ -2,7 +2,7 @@ import { colors } from './../../styles'
 import styled from 'styled-components'
 
 type InputGroup = {
-  inputWidth?: string
+  inputwidth?: string
 }
 
 export const Container = styled.div`
@@ -110,8 +110,8 @@ export const ButtonContainer = styled.div`
   }
 `
 export const InputFild = styled.div<InputGroup>`
-  display: ${(props) => (props.inputWidth ? 'inline-block' : 'block')};
-  width: ${(props) => (props.inputWidth ? '' : '100%')};
+  display: ${(props) => (props.inputwidth ? 'inline-block' : 'block')};
+  width: ${(props) => (props.inputwidth ? '' : '100%')};
   label {
     font-size: 14px;
     font-weight: bold;
@@ -119,11 +119,15 @@ export const InputFild = styled.div<InputGroup>`
     display: block;
   }
   input {
-    width: ${(props) => props.inputWidth || '100%'};
+    width: ${(props) => props.inputwidth || '100%'};
     background-color: ${colors.beige};
     height: 32px;
     padding: 0 8px;
-    margin-bottom: 8px;
     border: 1px solid ${colors.beige};
+  }
+  small {
+    display: block;
+    margin: 8px 0;
+    font-size: 10px;
   }
 `
