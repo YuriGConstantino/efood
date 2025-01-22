@@ -4,7 +4,6 @@ import {
   CartContanier,
   ItemCard,
   RemoveBtn,
-  InputField,
   ButtonContainer
 } from './styled'
 import trash from '../../assets/images/close2.png'
