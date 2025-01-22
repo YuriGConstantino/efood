@@ -3,7 +3,7 @@ import { HeaderContainer, HeaderContent, Text } from './styles'
 import { Button } from '../../components/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { open } from '../../store/reducers/cart'
-import { Cart } from '../../components/Cart'
+import { Cart } from '../../containers/Cart'
 import { RootReducer } from '../../store'
 
 type Props = {

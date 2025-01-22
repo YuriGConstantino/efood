@@ -1,4 +1,4 @@
-import { colors } from './../../styles'
+import { colors } from '../../styles'
 import styled from 'styled-components'
 
 type InputGroup = {
@@ -109,7 +109,7 @@ export const ButtonContainer = styled.div`
     margin-bottom: 8px;
   }
 `
-export const InputFild = styled.div<InputGroup>`
+export const InputField = styled.div<InputGroup>`
   display: ${(props) => (props.inputwidth ? 'inline-block' : 'block')};
   width: ${(props) => (props.inputwidth ? '' : '100%')};
   label {
