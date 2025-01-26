@@ -1,6 +1,6 @@
 import { RestaurantDishesCard } from '../../components/RestaurantMenu'
 import { Cardapio } from '../../pages/Home'
-import { PerfilesContainer } from './styles'
+import * as S from './styles'
 
 type Props = {
   cardapio: Cardapio[]
@@ -9,7 +9,7 @@ type Props = {
 export const RestaurentMenu = ({ cardapio }: Props) => {
   return (
     <>
-      <PerfilesContainer className="container">
+      <S.PerfilesContainer className="container">
         {cardapio.map((cardapio) => (
           <RestaurantDishesCard
             key={cardapio.id}
@@ -21,7 +21,7 @@ export const RestaurentMenu = ({ cardapio }: Props) => {
             porcao={cardapio.porcao}
           />
         ))}
-      </PerfilesContainer>
+      </S.PerfilesContainer>
     </>
   )
 }

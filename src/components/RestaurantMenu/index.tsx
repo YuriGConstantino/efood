@@ -1,18 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import close from '../../assets/images/close1.png'
-import {
-  DishButton,
-  DishDescription,
-  DishesCard,
-  DishImage,
-  DishName,
-  Modal,
-  ModalButton,
-  ModalClose,
-  ModalContainer,
-  ModalInfos
-} from './styles'
+import * as S from './styles'
 import { Overlay } from '../../styles'
 import { add } from '../../store/reducers/cart'
 
@@ -55,41 +44,41 @@ export const RestaurantDishesCard = ({
 
   return (
     <>
-      <DishesCard key={id}>
-        <DishImage src={foto} alt="Dish" />
-        <DishName>{nome}</DishName>
-        <DishDescription>{descricao}</DishDescription>
-        <DishButton
+      <S.DishesCard key={id}>
+        <S.DishImage src={foto} alt="Dish" />
+        <S.DishName>{nome}</S.DishName>
+        <S.DishDescription>{descricao}</S.DishDescription>
+        <S.DishButton
           onClick={() => setShowModal(true)}
           className="button"
           type="button"
         >
           Mais detalhes
-        </DishButton>
-      </DishesCard>
+        </S.DishButton>
+      </S.DishesCard>
 
-      <ModalContainer className={showModal ? 'show' : ''}>
+      <S.ModalContainer className={showModal ? 'show' : ''}>
         <Overlay onClick={() => setShowModal(false)} />
-        <Modal key={id} className="container">
+        <S.Modal key={id} className="container">
           <img src={foto} alt="" />
-          <ModalInfos>
+          <S.ModalInfos>
             <h4>{nome}</h4>
-            <ModalClose
+            <S.ModalClose
               onClick={() => setShowModal(false)}
               src={close}
               alt="Fechar janela"
             />
             <p>{descricao}</p>
-            <ModalButton
+            <S.ModalButton
               onClick={addCardAndCloseModal}
               type="button"
               className="button"
             >
               {`Adicionar no carrinho - ${priceFormat(preco)}`}
-            </ModalButton>
-          </ModalInfos>
-        </Modal>
-      </ModalContainer>
+            </S.ModalButton>
+          </S.ModalInfos>
+        </S.Modal>
+      </S.ModalContainer>
     </>
   )
 }

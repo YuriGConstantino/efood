@@ -1,13 +1,5 @@
 import { Tag } from '../Tag'
-import {
-  Card,
-  Image,
-  Tags,
-  TitleContainer,
-  Rating,
-  Description,
-  InfoContainer
-} from './styles'
+import * as S from './styles'
 
 import star from '../../assets/images/estrela.png'
 import { Link } from 'react-router'
@@ -31,21 +23,21 @@ export const RestaurantCard = ({
   description,
   id
 }: Props) => (
-  <Card>
-    <Image src={imagem} alt={title} />
-    <Tags>
+  <S.Card>
+    <S.Image src={imagem} alt={title} />
+    <S.Tags>
       {highlightTag ? <Tag>Destaque da semana</Tag> : ''}
       <Tag>{type}</Tag>
-    </Tags>
-    <InfoContainer>
-      <TitleContainer>
+    </S.Tags>
+    <S.InfoContainer>
+      <S.TitleContainer>
         <h4>{title}</h4>
-        <Rating>
+        <S.Rating>
           {rating}
           <img src={star} alt="" />
-        </Rating>
-      </TitleContainer>
-      <Description>{description}</Description>
+        </S.Rating>
+      </S.TitleContainer>
+      <S.Description>{description}</S.Description>
       <Link
         className="link"
         title="about"
@@ -54,6 +46,6 @@ export const RestaurantCard = ({
       >
         Saiba Mais
       </Link>
-    </InfoContainer>
-  </Card>
+    </S.InfoContainer>
+  </S.Card>
 )

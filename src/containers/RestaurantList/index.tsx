@@ -1,5 +1,5 @@
 import { RestaurantCard } from '../../components/RestaurantCard'
-import { RestaurantContainer, List } from './styles'
+import * as S from './styles'
 import { Restaurants } from '../../pages/Home'
 
 type Props = {
@@ -8,8 +8,8 @@ type Props = {
 
 export const RestaurantList = ({ restaurant }: Props) => {
   return (
-    <RestaurantContainer>
-      <List>
+    <S.RestaurantContainer>
+      <S.List>
         {restaurant.map((restaurant) => (
           <RestaurantCard
             key={restaurant.id}
@@ -22,7 +22,7 @@ export const RestaurantList = ({ restaurant }: Props) => {
             id={restaurant.id}
           />
         ))}
-      </List>
-    </RestaurantContainer>
+      </S.List>
+    </S.RestaurantContainer>
   )
 }

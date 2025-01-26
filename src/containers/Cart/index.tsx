@@ -1,11 +1,5 @@
 import { RootReducer } from '../../store'
-import {
-  Container,
-  CartContanier,
-  ItemCard,
-  RemoveBtn,
-  ButtonContainer
-} from './styled'
+import * as S from './styled'
 import trash from '../../assets/images/close2.png'
 import { Overlay } from '../../styles'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,6 +12,7 @@ import { Field } from '../../components/InputField'
 export const Cart = () => {
   const [goCheckout, setGoCheckout] = useState(false)
   const [goPayment, setGoPayment] = useState(false)
+  const [completeOrder, setCompleteOrder] = useState(false)
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
 
   const dispatch = useDispatch()
@@ -62,8 +57,8 @@ export const Cart = () => {
       Complement: Yup.string()
     }),
     onSubmit: (values) => {
-      setGoPayment(true)
       console.log(values)
+      setGoPayment(true)
     }
   })
 
@@ -77,25 +72,17 @@ export const Cart = () => {
     },
     validationSchema: Yup.object({
       CardHolder: Yup.string().required('O campo é obrigatorio'),
-      CardNumber: Yup.number()
-        .min(16, '')
-        .max(19, '')
-        .required('O campo é obrigatorio'),
-      CardCVV: Yup.number()
-        .min(3, '')
-        .max(3, '')
-        .required('O campo é obrigatorio'),
+      CardNumber: Yup.number().min(16, 'A').required('O campo é obrigatorio'),
+      CardCVV: Yup.number().min(3, 'A').required('O campo é obrigatorio'),
       CardExpirationMonth: Yup.number()
         .min(2, 'Coloque o mês de vencimento do cartão')
-        .max(2, '')
         .required('O campo é obrigatorio'),
       CardExpirationYear: Yup.number()
         .min(2, 'Coloque o ano de vencimento do cartão')
-        .max(2, '')
         .required('O campo é obrigatorio')
     }),
     onSubmit: (value) => {
-      setGoPayment(false)
+      setCompleteOrder(true)
       console.log(value)
     }
   })
@@ -113,24 +100,31 @@ export const Cart = () => {
     return ''
   }
 
+  const completeOrde = () => {
+    closeCart()
+    setGoCheckout(false)
+    setGoPayment(false)
+    setCompleteOrder(false)
+  }
+
   return (
     <>
-      <Container className={isOpen ? 'showCart' : ''}>
+      <S.Container className={isOpen ? 'showCart' : ''}>
         <Overlay onClick={closeCart} />
         {!goCheckout ? (
-          <CartContanier>
+          <S.CartContanier>
             {items.length >= 1 ? (
               <ul>
                 {items.map((items) => (
-                  <ItemCard key={items.id}>
+                  <S.ItemCard key={items.id}>
                     <img src={items.foto} alt={items.nome} />
                     <p>
                       {items.nome} <span>{priceFormat(items.preco)}</span>
                     </p>
-                    <RemoveBtn onClick={() => removeCart(items.id)}>
+                    <S.RemoveBtn onClick={() => removeCart(items.id)}>
                       <img src={trash} alt="Remover do carrinho" />
-                    </RemoveBtn>
-                  </ItemCard>
+                    </S.RemoveBtn>
+                  </S.ItemCard>
                 ))}
               </ul>
             ) : (
@@ -142,10 +136,10 @@ export const Cart = () => {
             <button onClick={() => setGoCheckout(true)}>
               Continuar com a entrega
             </button>
-          </CartContanier>
+          </S.CartContanier>
         ) : (
           //tela de checkout
-          <CartContanier>
+          <S.CartContanier>
             {!goPayment ? (
               <>
                 <h3>Entrega</h3>
@@ -220,101 +214,119 @@ export const Cart = () => {
                     value={formCheckout.values.Complement}
                     onChange={formCheckout.handleChange}
                   />
-                  <ButtonContainer>
-                    <button onClick={() => ''}>
-                      Continuar com o pagamento
-                    </button>
+                  <S.ButtonContainer>
+                    <button type="submit">Continuar com o pagamento</button>
                     <button onClick={() => setGoCheckout(false)}>
                       Voltar para o carrinho
                     </button>
-                  </ButtonContainer>
+                  </S.ButtonContainer>
                 </form>
               </>
             ) : (
               //tela de pagamento
               <>
-                <h3>
-                  Pagamento - Valor a pagar {priceFormat(getTotalPrice())}
-                </h3>
-                <form onSubmit={formPayment.handleSubmit}>
-                  <Field
-                    htmlForm="CardHolder"
-                    label="Nome no cartão"
-                    type="text"
-                    name="CardHolder"
-                    value={formPayment.values.CardHolder}
-                    onChange={formPayment.handleChange}
-                    getError={getErrorMessageformPayment(
-                      'CardHolder',
-                      formPayment.errors.CardHolder
-                    )}
-                  />
-                  <Field
-                    inputwidth="228px"
-                    htmlForm="CardNumber"
-                    label="Número do cartão"
-                    type="text"
-                    name="CardNumber"
-                    value={formPayment.values.CardNumber}
-                    onChange={formPayment.handleChange}
-                    getError={getErrorMessageformPayment(
-                      'CardNumber',
-                      formPayment.errors.CardNumber
-                    )}
-                  />
-                  <Field
-                    inputwidth="87px"
-                    htmlForm="CardCVV"
-                    label="CVV"
-                    type="number"
-                    name="CardCVV"
-                    value={formPayment.values.CardCVV}
-                    onChange={formPayment.handleChange}
-                    getError={getErrorMessageformPayment(
-                      'CardCVV',
-                      formPayment.errors.CardCVV
-                    )}
-                  />
-                  <Field
-                    inputwidth="155px"
-                    htmlForm="CardExpirationMonth"
-                    label="Mês de vencimento"
-                    type="number"
-                    name="CardExpirationMonth"
-                    value={formPayment.values.CardExpirationMonth}
-                    onChange={formPayment.handleChange}
-                    getError={getErrorMessageformPayment(
-                      'CardExpirationMonth',
-                      formPayment.errors.CardExpirationMonth
-                    )}
-                  />
-                  <Field
-                    inputwidth="155px"
-                    htmlForm="CardExpirationYear"
-                    label="Ano de vencimento"
-                    type="number"
-                    name="CardExpirationYear"
-                    value={formPayment.values.CardExpirationYear}
-                    onChange={formPayment.handleChange}
-                    getError={getErrorMessageformPayment(
-                      'CardExpirationYear',
-                      formPayment.errors.CardExpirationYear
-                    )}
-                  />
-                  <ButtonContainer>
-                    <button type="button" onClick={() => ''}>
-                      Finalizar pagamento
-                    </button>
-                    <button onClick={() => setGoPayment(false)}>
-                      Voltar para a edição de endereço
-                    </button>
-                  </ButtonContainer>
-                </form>
+                {!completeOrder ? (
+                  <>
+                    <h3>
+                      Pagamento - Valor a pagar {priceFormat(getTotalPrice())}
+                    </h3>
+                    <form onSubmit={formPayment.handleSubmit}>
+                      <Field
+                        htmlForm="CardHolder"
+                        label="Nome no cartão"
+                        type="text"
+                        name="CardHolder"
+                        value={formPayment.values.CardHolder}
+                        onChange={formPayment.handleChange}
+                        getError={getErrorMessageformPayment(
+                          'CardHolder',
+                          formPayment.errors.CardHolder
+                        )}
+                      />
+                      <Field
+                        inputwidth="228px"
+                        htmlForm="CardNumber"
+                        label="Número do cartão"
+                        type="text"
+                        name="CardNumber"
+                        value={formPayment.values.CardNumber}
+                        onChange={formPayment.handleChange}
+                        getError={getErrorMessageformPayment(
+                          'CardNumber',
+                          formPayment.errors.CardNumber
+                        )}
+                      />
+                      <Field
+                        inputwidth="87px"
+                        htmlForm="CardCVV"
+                        label="CVV"
+                        type="number"
+                        name="CardCVV"
+                        value={formPayment.values.CardCVV}
+                        onChange={formPayment.handleChange}
+                        getError={getErrorMessageformPayment(
+                          'CardCVV',
+                          formPayment.errors.CardCVV
+                        )}
+                      />
+                      <Field
+                        inputwidth="155px"
+                        htmlForm="CardExpirationMonth"
+                        label="Mês de vencimento"
+                        type="number"
+                        name="CardExpirationMonth"
+                        value={formPayment.values.CardExpirationMonth}
+                        onChange={formPayment.handleChange}
+                        getError={getErrorMessageformPayment(
+                          'CardExpirationMonth',
+                          formPayment.errors.CardExpirationMonth
+                        )}
+                      />
+                      <Field
+                        inputwidth="155px"
+                        htmlForm="CardExpirationYear"
+                        label="Ano de vencimento"
+                        type="number"
+                        name="CardExpirationYear"
+                        value={formPayment.values.CardExpirationYear}
+                        onChange={formPayment.handleChange}
+                        getError={getErrorMessageformPayment(
+                          'CardExpirationYear',
+                          formPayment.errors.CardExpirationYear
+                        )}
+                      />
+                      <S.ButtonContainer>
+                        <button type="submit">Finalizar pagamento</button>
+                        <button onClick={() => setGoPayment(false)}>
+                          Voltar para a edição de endereço
+                        </button>
+                      </S.ButtonContainer>
+                    </form>
+                  </>
+                ) : (
+                  <>
+                    <h3>Pedido realizado - ORDER_ID</h3>
+                    <p>
+                      Estamos felizes em informar que seu pedido já está em
+                      processo de preparação e, em breve, será entregue no
+                      endereço fornecido. Gostaríamos de ressaltar que nossos
+                      entregadores não estão autorizados a realizar cobranças
+                      extras. Lembre-se da importância de higienizar as mãos
+                      após o recebimento do pedido, garantindo assim sua
+                      segurança e bem-estar durante a refeição. Esperamos que
+                      desfrute de uma deliciosa e agradável experiência
+                      gastronômica. Bom apetite!
+                    </p>
+                    <S.ButtonContainer>
+                      <button onClick={completeOrde}>Concluir</button>
+                    </S.ButtonContainer>
+                  </>
+                )}
               </>
             )}
-          </CartContanier>
+          </S.CartContanier>
         )}
-      </Container>
+      </S.Container>
     </>
   )
 }

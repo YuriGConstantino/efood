@@ -1,4 +1,4 @@
-import { InputField } from './styles'
+import * as S from './styles'
 
 type Props = {
   inputwidth?: string
@@ -22,10 +22,10 @@ export const Field = ({
   getError
 }: Props) => {
   return (
-    <InputField inputwidth={inputwidth}>
+    <S.InputField inputwidth={inputwidth}>
       <label htmlFor={htmlForm}>{label}</label>
       <input type={type} name={name} value={value} onChange={onChange} />
       <small>{getError}</small>
-    </InputField>
+    </S.InputField>
   )
 }

@@ -26,14 +26,13 @@ export const HeaderContainer = styled.div`
     font-size: 18px;
     cursor: pointer;
   }
-`
-
-export const Text = styled.p`
-  font-size: 36px;
-  font-weight: bold;
-  text-align: center;
-  width: 539px;
-  margin-top: 136px;
+  p {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    width: 539px;
+    margin-top: 136px;
+  }
 `
 
 export const HeaderContent = styled.div`

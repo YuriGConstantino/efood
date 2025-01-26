@@ -1,5 +1,5 @@
 import Logo from '../../assets/images/logo.png'
-import { HeaderContainer, HeaderContent, Text } from './styles'
+import * as S from './styles'
 import { Button } from '../../components/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { open } from '../../store/reducers/cart'
@@ -19,14 +19,14 @@ export const Header = ({ showRestaurantPerfil }: Props) => {
   }
   return (
     <>
-      <HeaderContainer>
+      <S.HeaderContainer>
         <div className="container">
           {showRestaurantPerfil ? (
             <>
               <h1>
                 <img src={Logo} alt="efood" />
               </h1>
-              <HeaderContent>
+              <S.HeaderContent>
                 <Button className="button" type="link" to={'/'}>
                   Restaurantes
                 </Button>
@@ -35,20 +35,18 @@ export const Header = ({ showRestaurantPerfil }: Props) => {
                     {items.length} produto(s) no carrinho
                   </span>
                 </Button>
-              </HeaderContent>
+              </S.HeaderContent>
             </>
           ) : (
             <>
               <h1>
                 <img src={Logo} alt="efood" />
               </h1>
-              <Text>
-                Viva experiências gastronômicas no conforto da sua casa
-              </Text>
+              <p>Viva experiências gastronômicas no conforto da sua casa</p>
             </>
           )}
         </div>
-      </HeaderContainer>
+      </S.HeaderContainer>
       <Cart />
     </>
   )
