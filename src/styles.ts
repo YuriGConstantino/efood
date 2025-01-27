@@ -27,6 +27,12 @@ export const GlobalStyle = createGlobalStyle`
 
   }
 
+  .load {
+    margin: 0 auto;
+    top: 50px;
+    color: red;
+  }
+
 `
 export const Overlay = styled.div`
   height: 100%;

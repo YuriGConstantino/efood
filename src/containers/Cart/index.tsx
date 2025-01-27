@@ -31,8 +31,8 @@ export const Cart = () => {
     }).format(preco)
   }
   const getTotalPrice = () => {
-    return items.reduce((acumulador, valorAtual) => {
-      return (acumulador += valorAtual.preco)
+    return items.reduce((accumulator, currentPrice) => {
+      return (accumulator += currentPrice.preco)
     }, 0)
   }
   const formCheckout = useFormik({
@@ -45,19 +45,14 @@ export const Cart = () => {
       Complement: ''
     },
     validationSchema: Yup.object({
-      WhoReceiver: Yup.string()
-        .min(5, 'O nome precisar ter mais de 5 caracteres')
-        .required('O campo é obrigatorio'),
-      Address: Yup.string()
-        .min(5, 'o enderenço precisa ter mais de 5 caracteres')
-        .required('O campo é obrigatorio'),
-      City: Yup.string().required('O campo é obrigatorio'),
-      CEP: Yup.string().required('O campo é obrigatorio'),
-      Number: Yup.number().required('O campo é obrigatorio'),
+      WhoReceiver: Yup.string().min(5, '').required(''),
+      Address: Yup.string().min(5, '').required(''),
+      City: Yup.string().required(''),
+      CEP: Yup.string().required(''),
+      Number: Yup.number().required(''),
       Complement: Yup.string()
     }),
-    onSubmit: (values) => {
-      console.log(values)
+    onSubmit: () => {
       setGoPayment(true)
     }
   })
@@ -71,40 +66,35 @@ export const Cart = () => {
       CardExpirationYear: ''
     },
     validationSchema: Yup.object({
-      CardHolder: Yup.string().required('O campo é obrigatorio'),
-      CardNumber: Yup.number().min(16, 'A').required('O campo é obrigatorio'),
-      CardCVV: Yup.number().min(3, 'A').required('O campo é obrigatorio'),
-      CardExpirationMonth: Yup.number()
-        .min(2, 'Coloque o mês de vencimento do cartão')
-        .required('O campo é obrigatorio'),
-      CardExpirationYear: Yup.number()
-        .min(2, 'Coloque o ano de vencimento do cartão')
-        .required('O campo é obrigatorio')
+      CardHolder: Yup.string().required(''),
+      CardNumber: Yup.number().min(16, '').required(''),
+      CardCVV: Yup.number().min(3, '').required(''),
+      CardExpirationMonth: Yup.number().min(2, '').required(''),
+      CardExpirationYear: Yup.number().min(2, '').required('')
     }),
-    onSubmit: (value) => {
+    onSubmit: () => {
       setCompleteOrder(true)
-      console.log(value)
     }
   })
 
-  const getErrorMessageformCheckout = (fildName: string, message?: string) => {
-    const isTouched = fildName in formCheckout.touched
-    const isInvalid = fildName in formCheckout.errors
-    if (isTouched && isInvalid) return message
-    return ''
+  const getInputAddressErrors = (fieldName: string) => {
+    const isTouched = fieldName in formCheckout.touched
+    const isInvalid = fieldName in formCheckout.errors
+    const hasError = isTouched && isInvalid
+
+    return hasError
   }
-  const getErrorMessageformPayment = (fildName: string, message?: string) => {
-    const isTouched = fildName in formPayment.touched
-    const isInvalid = fildName in formPayment.errors
-    if (isTouched && isInvalid) return message
-    return ''
+
+  const getInputPaymentErrors = (fieldName: string) => {
+    const isTouched = fieldName in formPayment.touched
+    const isInvalid = fieldName in formPayment.errors
+    const hasError = isTouched && isInvalid
+
+    return hasError
   }
 
   const completeOrde = () => {
-    closeCart()
-    setGoCheckout(false)
-    setGoPayment(false)
-    setCompleteOrder(false)
+    window.location.reload()
   }
 
   return (
@@ -114,28 +104,30 @@ export const Cart = () => {
         {!goCheckout ? (
           <S.CartContanier>
             {items.length >= 1 ? (
-              <ul>
-                {items.map((items) => (
-                  <S.ItemCard key={items.id}>
-                    <img src={items.foto} alt={items.nome} />
-                    <p>
-                      {items.nome} <span>{priceFormat(items.preco)}</span>
-                    </p>
-                    <S.RemoveBtn onClick={() => removeCart(items.id)}>
-                      <img src={trash} alt="Remover do carrinho" />
-                    </S.RemoveBtn>
-                  </S.ItemCard>
-                ))}
-              </ul>
+              <>
+                <ul>
+                  {items.map((items) => (
+                    <S.ItemCard key={items.id}>
+                      <img src={items.foto} alt={items.nome} />
+                      <p>
+                        {items.nome} <span>{priceFormat(items.preco)}</span>
+                      </p>
+                      <S.RemoveBtn onClick={() => removeCart(items.id)}>
+                        <img src={trash} alt="Remover do carrinho" />
+                      </S.RemoveBtn>
+                    </S.ItemCard>
+                  ))}
+                </ul>
+                <p>
+                  Valor total <span>{priceFormat(getTotalPrice())}</span>
+                </p>
+                <button onClick={() => setGoCheckout(true)}>
+                  Continuar com a entrega
+                </button>
+              </>
             ) : (
               <p>O carrinho está vazio</p>
             )}
-            <p>
-              Valor total <span>{priceFormat(getTotalPrice())}</span>
-            </p>
-            <button onClick={() => setGoCheckout(true)}>
-              Continuar com a entrega
-            </button>
           </S.CartContanier>
         ) : (
           //tela de checkout
@@ -151,10 +143,9 @@ export const Cart = () => {
                     name="WhoReceiver"
                     value={formCheckout.values.WhoReceiver}
                     onChange={formCheckout.handleChange}
-                    getError={getErrorMessageformCheckout(
-                      'WhoReceiver',
-                      formCheckout.errors.WhoReceiver
-                    )}
+                    className={
+                      getInputAddressErrors('WhoReceiver') ? 'error' : ''
+                    }
                   />
                   <Field
                     htmlForm="Address"
@@ -163,10 +154,7 @@ export const Cart = () => {
                     name="Address"
                     value={formCheckout.values.Address}
                     onChange={formCheckout.handleChange}
-                    getError={getErrorMessageformCheckout(
-                      'Address',
-                      formCheckout.errors.Address
-                    )}
+                    className={getInputAddressErrors('Address') ? 'error' : ''}
                   />
                   <Field
                     htmlForm="City"
@@ -175,10 +163,7 @@ export const Cart = () => {
                     name="City"
                     value={formCheckout.values.City}
                     onChange={formCheckout.handleChange}
-                    getError={getErrorMessageformCheckout(
-                      'City',
-                      formCheckout.errors.City
-                    )}
+                    className={getInputAddressErrors('City') ? 'error' : ''}
                   />
                   <Field
                     inputwidth="155px"
@@ -188,10 +173,7 @@ export const Cart = () => {
                     name="CEP"
                     value={formCheckout.values.CEP}
                     onChange={formCheckout.handleChange}
-                    getError={getErrorMessageformCheckout(
-                      'CEP',
-                      formCheckout.errors.CEP
-                    )}
+                    className={getInputAddressErrors('CEP') ? 'error' : ''}
                   />
                   <Field
                     inputwidth="155px"
@@ -201,10 +183,7 @@ export const Cart = () => {
                     name="Number"
                     value={formCheckout.values.Number}
                     onChange={formCheckout.handleChange}
-                    getError={getErrorMessageformCheckout(
-                      'Number',
-                      formCheckout.errors.Number
-                    )}
+                    className={getInputAddressErrors('Number') ? 'error' : ''}
                   />
                   <Field
                     htmlForm="Complement"
@@ -213,6 +192,7 @@ export const Cart = () => {
                     name="Complement"
                     value={formCheckout.values.Complement}
                     onChange={formCheckout.handleChange}
+                    className=""
                   />
                   <S.ButtonContainer>
                     <button type="submit">Continuar com o pagamento</button>
@@ -238,10 +218,9 @@ export const Cart = () => {
                         name="CardHolder"
                         value={formPayment.values.CardHolder}
                         onChange={formPayment.handleChange}
-                        getError={getErrorMessageformPayment(
-                          'CardHolder',
-                          formPayment.errors.CardHolder
-                        )}
+                        className={
+                          getInputPaymentErrors('CardHolder') ? 'error' : ''
+                        }
                       />
                       <Field
                         inputwidth="228px"
@@ -251,10 +230,9 @@ export const Cart = () => {
                         name="CardNumber"
                         value={formPayment.values.CardNumber}
                         onChange={formPayment.handleChange}
-                        getError={getErrorMessageformPayment(
-                          'CardNumber',
-                          formPayment.errors.CardNumber
-                        )}
+                        className={
+                          getInputPaymentErrors('CardNumber') ? 'error' : ''
+                        }
                       />
                       <Field
                         inputwidth="87px"
@@ -264,10 +242,9 @@ export const Cart = () => {
                         name="CardCVV"
                         value={formPayment.values.CardCVV}
                         onChange={formPayment.handleChange}
-                        getError={getErrorMessageformPayment(
-                          'CardCVV',
-                          formPayment.errors.CardCVV
-                        )}
+                        className={
+                          getInputPaymentErrors('CardCVV') ? 'error' : ''
+                        }
                       />
                       <Field
                         inputwidth="155px"
@@ -277,10 +254,11 @@ export const Cart = () => {
                         name="CardExpirationMonth"
                         value={formPayment.values.CardExpirationMonth}
                         onChange={formPayment.handleChange}
-                        getError={getErrorMessageformPayment(
-                          'CardExpirationMonth',
-                          formPayment.errors.CardExpirationMonth
-                        )}
+                        className={
+                          getInputPaymentErrors('CardExpirationMonth')
+                            ? 'error'
+                            : ''
+                        }
                       />
                       <Field
                         inputwidth="155px"
@@ -290,10 +268,11 @@ export const Cart = () => {
                         name="CardExpirationYear"
                         value={formPayment.values.CardExpirationYear}
                         onChange={formPayment.handleChange}
-                        getError={getErrorMessageformPayment(
-                          'CardExpirationYear',
-                          formPayment.errors.CardExpirationYear
-                        )}
+                        className={
+                          getInputPaymentErrors('CardExpirationYear')
+                            ? 'error'
+                            : ''
+                        }
                       />
                       <S.ButtonContainer>
                         <button type="submit">Finalizar pagamento</button>
@@ -306,16 +285,23 @@ export const Cart = () => {
                 ) : (
                   <>
                     <h3>Pedido realizado - ORDER_ID</h3>
-                    <p>
+                    <p className="textOrder">
                       Estamos felizes em informar que seu pedido já está em
                       processo de preparação e, em breve, será entregue no
-                      endereço fornecido. Gostaríamos de ressaltar que nossos
-                      entregadores não estão autorizados a realizar cobranças
-                      extras. Lembre-se da importância de higienizar as mãos
-                      após o recebimento do pedido, garantindo assim sua
-                      segurança e bem-estar durante a refeição. Esperamos que
-                      desfrute de uma deliciosa e agradável experiência
-                      gastronômica. Bom apetite!
+                      endereço fornecido.
+                    </p>
+                    <p className="textOrder">
+                      Gostaríamos de ressaltar que nossos entregadores não estão
+                      autorizados a realizar cobranças extras.
+                    </p>
+                    <p className="textOrder">
+                      Lembre-se da importância de higienizar as mãos após o
+                      recebimento do pedido, garantindo assim sua segurança e
+                      bem-estar durante a refeição.
+                    </p>
+                    <p className="textOrder">
+                      Esperamos que desfrute de uma deliciosa e agradável
+                      experiência gastronômica. Bom apetite!
                     </p>
                     <S.ButtonContainer>
                       <button onClick={completeOrde}>Concluir</button>

@@ -9,7 +9,7 @@ export const InputField = styled.div<InputGroup>`
   label {
     font-size: 14px;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin: 8px 0;
     display: block;
   }
   input {
@@ -18,6 +18,10 @@ export const InputField = styled.div<InputGroup>`
     height: 32px;
     padding: 0 8px;
     border: 1px solid ${colors.beige};
+
+    &.error {
+      border: 3px solid red;
+    }
   }
   small {
     display: block;

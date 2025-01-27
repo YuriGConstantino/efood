@@ -2,6 +2,8 @@ import { RestaurantList } from '../../containers/RestaurantList'
 
 import { Header } from '../../containers/Header'
 import { useGetRestaurantsListQuery } from '../../services/api'
+import { MoonLoader } from 'react-spinners'
+import { colors } from '../../styles'
 
 export type Restaurants = {
   id: number
@@ -36,5 +38,5 @@ export const Home = () => {
       </>
     )
   }
-  return <h3>Carregando...</h3>
+  return <MoonLoader color={colors.red} className="load" />
 }

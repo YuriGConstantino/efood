@@ -8,6 +8,7 @@ export const Container = styled.div`
     display: block;
   }
 `
+
 export const CartContanier = styled.aside`
   position: fixed;
   top: 0;
@@ -37,6 +38,11 @@ export const CartContanier = styled.aside`
     margin: 40px 0 16px;
     font-size: 14px;
     font-weight: 700;
+    &.textOrder {
+      font-weight: 400;
+      line-height: 22px;
+      margin: 24px 0;
+    }
   }
 
   > button {

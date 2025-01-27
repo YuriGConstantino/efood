@@ -3,6 +3,8 @@ import { Hero } from '../../components/Hero'
 import { Header } from '../../containers/Header'
 import { RestaurentMenu } from '../../containers/RestaurentMenuList'
 import { useGetRestaurantMenuQuery } from '../../services/api'
+import { MoonLoader } from 'react-spinners'
+import { colors } from '../../styles'
 
 export const RestaurantPerfil = () => {
   const { id } = useParams()
@@ -20,5 +22,5 @@ export const RestaurantPerfil = () => {
       </>
     )
   }
-  return <h3>Carregando...</h3>
+  return <MoonLoader color={colors.red} className="load" />
 }
