@@ -1,3 +1,4 @@
+import InputMask from 'react-input-mask'
 import * as S from './styles'
 
 type Props = {
@@ -7,8 +8,11 @@ type Props = {
   type: string
   name: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  value: string | number | readonly string[] | undefined
-  className: string
+  value: string
+  errorMensage?: string
+  mask: string
+  min?: string
+  max?: string
 }
 
 export const Field = ({
@@ -18,19 +22,25 @@ export const Field = ({
   type,
   name,
   value,
-  className,
-  onChange
+  onChange,
+  errorMensage,
+  mask,
+  min,
+  max
 }: Props) => {
   return (
     <S.InputField inputwidth={inputwidth}>
       <label htmlFor={htmlForm}>{label}</label>
-      <input
-        className={className}
+      <InputMask
+        mask={mask}
         type={type}
         name={name}
         value={value}
         onChange={onChange}
+        min={min}
+        max={max}
       />
+      <small>{errorMensage}</small>
     </S.InputField>
   )
 }

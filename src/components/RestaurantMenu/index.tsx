@@ -4,6 +4,7 @@ import close from '../../assets/images/close1.png'
 import * as S from './styles'
 import { Overlay } from '../../styles'
 import { add } from '../../store/reducers/cart'
+import { parseToBrl } from '../../utils'
 
 type Props = {
   descricao: string
@@ -28,13 +29,6 @@ export const RestaurantDishesCard = ({
   const addCart = () => {
     const item = { descricao, foto, id, nome, preco, porcao }
     dispatch(add(item))
-  }
-
-  const priceFormat = (preco: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(preco)
   }
 
   const addCardAndCloseModal = () => {
@@ -74,7 +68,7 @@ export const RestaurantDishesCard = ({
               type="button"
               className="button"
             >
-              {`Adicionar no carrinho - ${priceFormat(preco)}`}
+              {`Adicionar no carrinho - ${parseToBrl(preco)}`}
             </S.ModalButton>
           </S.ModalInfos>
         </S.Modal>

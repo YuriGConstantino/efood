@@ -1,19 +1,23 @@
-import { RootReducer } from '../../store'
-import * as S from './styled'
-import trash from '../../assets/images/close2.png'
-import { Overlay } from '../../styles'
-import { useDispatch, useSelector } from 'react-redux'
-import { close, remove } from '../../store/reducers/cart'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootReducer } from '../../store'
+
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { Overlay } from '../../styles'
+import { close, remove } from '../../store/reducers/cart'
 import { Field } from '../../components/InputField'
+import { usePurchaseMutation } from '../../services/api'
+import { parseToBrl } from '../../utils'
+import trash from '../../assets/images/close2.png'
+import * as S from './styled'
 
 export const Cart = () => {
   const [goCheckout, setGoCheckout] = useState(false)
   const [goPayment, setGoPayment] = useState(false)
   const [completeOrder, setCompleteOrder] = useState(false)
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
+  const [purchase, { data }] = usePurchaseMutation()
 
   const dispatch = useDispatch()
 
@@ -23,12 +27,6 @@ export const Cart = () => {
 
   const removeCart = (id: number) => {
     dispatch(remove(id))
-  }
-  const priceFormat = (preco: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(preco)
   }
   const getTotalPrice = () => {
     return items.reduce((accumulator, currentPrice) => {
@@ -40,25 +38,9 @@ export const Cart = () => {
       WhoReceiver: '',
       Address: '',
       City: '',
-      CEP: '',
+      ZipCode: '',
       Number: '',
-      Complement: ''
-    },
-    validationSchema: Yup.object({
-      WhoReceiver: Yup.string().min(5, '').required(''),
-      Address: Yup.string().min(5, '').required(''),
-      City: Yup.string().required(''),
-      CEP: Yup.string().required(''),
-      Number: Yup.number().required(''),
-      Complement: Yup.string()
-    }),
-    onSubmit: () => {
-      setGoPayment(true)
-    }
-  })
-
-  const formPayment = useFormik({
-    initialValues: {
+      Complement: '',
       CardHolder: '',
       CardNumber: '',
       CardCVV: '',
@@ -66,35 +48,61 @@ export const Cart = () => {
       CardExpirationYear: ''
     },
     validationSchema: Yup.object({
-      CardHolder: Yup.string().required(''),
-      CardNumber: Yup.number().min(16, '').required(''),
-      CardCVV: Yup.number().min(3, '').required(''),
-      CardExpirationMonth: Yup.number().min(2, '').required(''),
-      CardExpirationYear: Yup.number().min(2, '').required('')
+      WhoReceiver: Yup.string()
+        .min(5, 'O nome teve ter mais de 5 caractéres')
+        .required('O campo é obrigatorio'),
+      Address: Yup.string()
+        .min(5, 'O nome teve ter mais de 5 caractéres')
+        .required('O campo é obrigatorio'),
+      City: Yup.string().required('O campo é obrigatorio'),
+      ZipCode: Yup.string().required('O campo é obrigatorio'),
+      Number: Yup.number().required('O campo é obrigatorio'),
+      Complement: Yup.string(),
+      CardHolder: Yup.string().required('O campo é obrigatorio'),
+      CardNumber: Yup.string().min(16, '').required('O campo é obrigatorio'),
+      CardCVV: Yup.number().min(3, '').required('O campo é obrigatorio'),
+      CardExpirationMonth: Yup.number()
+        .min(2, '')
+        .required('O campo é obrigatorio'),
+      CardExpirationYear: Yup.number()
+        .min(2, '')
+        .required('O campo é obrigatorio')
     }),
-    onSubmit: () => {
+    onSubmit: (values) => {
       setCompleteOrder(true)
+      purchase({
+        products: items.map((item) => ({ id: item.id, price: item.preco })),
+        delivery: {
+          receiver: values.WhoReceiver,
+          address: {
+            description: values.Address,
+            city: values.City,
+            zipCode: values.ZipCode,
+            number: Number(values.Number),
+            complement: values.Complement
+          }
+        },
+        payment: {
+          card: {
+            name: values.CardHolder,
+            number: values.CardNumber,
+            code: Number(values.CardCVV),
+            expires: {
+              month: Number(values.CardExpirationMonth),
+              year: Number(values.CardExpirationYear)
+            }
+          }
+        }
+      })
     }
   })
 
-  const getInputAddressErrors = (fieldName: string) => {
+  const getInputErrors = (fieldName: string, mensage?: string) => {
     const isTouched = fieldName in formCheckout.touched
     const isInvalid = fieldName in formCheckout.errors
-    const hasError = isTouched && isInvalid
 
-    return hasError
-  }
-
-  const getInputPaymentErrors = (fieldName: string) => {
-    const isTouched = fieldName in formPayment.touched
-    const isInvalid = fieldName in formPayment.errors
-    const hasError = isTouched && isInvalid
-
-    return hasError
-  }
-
-  const completeOrde = () => {
-    window.location.reload()
+    if (isTouched && isInvalid) return mensage
+    return ''
   }
 
   return (
@@ -110,7 +118,7 @@ export const Cart = () => {
                     <S.ItemCard key={items.id}>
                       <img src={items.foto} alt={items.nome} />
                       <p>
-                        {items.nome} <span>{priceFormat(items.preco)}</span>
+                        {items.nome} <span>{parseToBrl(items.preco)}</span>
                       </p>
                       <S.RemoveBtn onClick={() => removeCart(items.id)}>
                         <img src={trash} alt="Remover do carrinho" />
@@ -119,7 +127,7 @@ export const Cart = () => {
                   ))}
                 </ul>
                 <p>
-                  Valor total <span>{priceFormat(getTotalPrice())}</span>
+                  Valor total <span>{parseToBrl(getTotalPrice())}</span>
                 </p>
                 <button onClick={() => setGoCheckout(true)}>
                   Continuar com a entrega
@@ -137,45 +145,60 @@ export const Cart = () => {
                 <h3>Entrega</h3>
                 <form onSubmit={formCheckout.handleSubmit}>
                   <Field
+                    mask=""
                     htmlForm="WhoReceiver"
                     label="Quem irá receber"
                     type="text"
                     name="WhoReceiver"
                     value={formCheckout.values.WhoReceiver}
                     onChange={formCheckout.handleChange}
-                    className={
-                      getInputAddressErrors('WhoReceiver') ? 'error' : ''
-                    }
+                    errorMensage={getInputErrors(
+                      'WhoReceiver',
+                      formCheckout.errors.WhoReceiver
+                    )}
                   />
                   <Field
+                    mask=""
                     htmlForm="Address"
                     label="Endereço"
                     type="text"
                     name="Address"
                     value={formCheckout.values.Address}
                     onChange={formCheckout.handleChange}
-                    className={getInputAddressErrors('Address') ? 'error' : ''}
+                    errorMensage={getInputErrors(
+                      'Address',
+                      formCheckout.errors.Address
+                    )}
                   />
                   <Field
+                    mask=""
                     htmlForm="City"
                     label="Cidade"
                     type="text"
                     name="City"
                     value={formCheckout.values.City}
                     onChange={formCheckout.handleChange}
-                    className={getInputAddressErrors('City') ? 'error' : ''}
+                    errorMensage={getInputErrors(
+                      'City',
+                      formCheckout.errors.City
+                    )}
                   />
                   <Field
+                    mask="99999-999"
                     inputwidth="155px"
-                    htmlForm="CEP"
+                    htmlForm="ZipCode"
                     label="CEP"
                     type="text"
-                    name="CEP"
-                    value={formCheckout.values.CEP}
+                    name="ZipCode"
+                    value={formCheckout.values.ZipCode}
                     onChange={formCheckout.handleChange}
-                    className={getInputAddressErrors('CEP') ? 'error' : ''}
+                    errorMensage={getInputErrors(
+                      'ZipCode',
+                      formCheckout.errors.ZipCode
+                    )}
                   />
                   <Field
+                    mask=""
                     inputwidth="155px"
                     htmlForm="Number"
                     label="Número"
@@ -183,19 +206,24 @@ export const Cart = () => {
                     name="Number"
                     value={formCheckout.values.Number}
                     onChange={formCheckout.handleChange}
-                    className={getInputAddressErrors('Number') ? 'error' : ''}
+                    errorMensage={getInputErrors(
+                      'Number',
+                      formCheckout.errors.Number
+                    )}
                   />
                   <Field
+                    mask=""
                     htmlForm="Complement"
                     label="Complemento (opcional)"
                     type="text"
                     name="Complement"
                     value={formCheckout.values.Complement}
                     onChange={formCheckout.handleChange}
-                    className=""
                   />
                   <S.ButtonContainer>
-                    <button type="submit">Continuar com o pagamento</button>
+                    <button onClick={() => setGoPayment(true)}>
+                      Continuar com o pagamento
+                    </button>
                     <button onClick={() => setGoCheckout(false)}>
                       Voltar para o carrinho
                     </button>
@@ -208,71 +236,81 @@ export const Cart = () => {
                 {!completeOrder ? (
                   <>
                     <h3>
-                      Pagamento - Valor a pagar {priceFormat(getTotalPrice())}
+                      Pagamento - Valor a pagar {parseToBrl(getTotalPrice())}
                     </h3>
-                    <form onSubmit={formPayment.handleSubmit}>
+                    <form onSubmit={formCheckout.handleSubmit}>
                       <Field
+                        mask=""
                         htmlForm="CardHolder"
                         label="Nome no cartão"
                         type="text"
                         name="CardHolder"
-                        value={formPayment.values.CardHolder}
-                        onChange={formPayment.handleChange}
-                        className={
-                          getInputPaymentErrors('CardHolder') ? 'error' : ''
-                        }
+                        value={formCheckout.values.CardHolder}
+                        onChange={formCheckout.handleChange}
+                        errorMensage={getInputErrors(
+                          'CardHolder',
+                          formCheckout.errors.CardHolder
+                        )}
                       />
                       <Field
+                        mask="9999.9999.9999.9999"
                         inputwidth="228px"
                         htmlForm="CardNumber"
                         label="Número do cartão"
                         type="text"
                         name="CardNumber"
-                        value={formPayment.values.CardNumber}
-                        onChange={formPayment.handleChange}
-                        className={
-                          getInputPaymentErrors('CardNumber') ? 'error' : ''
-                        }
+                        value={formCheckout.values.CardNumber}
+                        onChange={formCheckout.handleChange}
+                        errorMensage={getInputErrors(
+                          'CardNumber',
+                          formCheckout.errors.CardNumber
+                        )}
                       />
                       <Field
+                        mask=""
                         inputwidth="87px"
                         htmlForm="CardCVV"
                         label="CVV"
                         type="number"
                         name="CardCVV"
-                        value={formPayment.values.CardCVV}
-                        onChange={formPayment.handleChange}
-                        className={
-                          getInputPaymentErrors('CardCVV') ? 'error' : ''
-                        }
+                        value={formCheckout.values.CardCVV}
+                        onChange={formCheckout.handleChange}
+                        errorMensage={getInputErrors(
+                          'CardCVV',
+                          formCheckout.errors.CardCVV
+                        )}
+                        min="000"
                       />
                       <Field
+                        mask=""
                         inputwidth="155px"
                         htmlForm="CardExpirationMonth"
                         label="Mês de vencimento"
                         type="number"
                         name="CardExpirationMonth"
-                        value={formPayment.values.CardExpirationMonth}
-                        onChange={formPayment.handleChange}
-                        className={
-                          getInputPaymentErrors('CardExpirationMonth')
-                            ? 'error'
-                            : ''
-                        }
+                        value={formCheckout.values.CardExpirationMonth}
+                        onChange={formCheckout.handleChange}
+                        errorMensage={getInputErrors(
+                          'CardExpirationMonth',
+                          formCheckout.errors.CardExpirationMonth
+                        )}
+                        min="01"
+                        max="12"
                       />
                       <Field
+                        mask=""
                         inputwidth="155px"
                         htmlForm="CardExpirationYear"
                         label="Ano de vencimento"
                         type="number"
                         name="CardExpirationYear"
-                        value={formPayment.values.CardExpirationYear}
-                        onChange={formPayment.handleChange}
-                        className={
-                          getInputPaymentErrors('CardExpirationYear')
-                            ? 'error'
-                            : ''
-                        }
+                        value={formCheckout.values.CardExpirationYear}
+                        onChange={formCheckout.handleChange}
+                        errorMensage={getInputErrors(
+                          'CardExpirationYear',
+                          formCheckout.errors.CardExpirationYear
+                        )}
+                        min="26"
                       />
                       <S.ButtonContainer>
                         <button type="submit">Finalizar pagamento</button>
@@ -284,7 +322,7 @@ export const Cart = () => {
                   </>
                 ) : (
                   <>
-                    <h3>Pedido realizado - ORDER_ID</h3>
+                    <h3>Pedido realizado - {data?.orderId}</h3>
                     <p className="textOrder">
                       Estamos felizes em informar que seu pedido já está em
                       processo de preparação e, em breve, será entregue no
@@ -304,7 +342,9 @@ export const Cart = () => {
                       experiência gastronômica. Bom apetite!
                     </p>
                     <S.ButtonContainer>
-                      <button onClick={completeOrde}>Concluir</button>
+                      <button onClick={() => window.location.reload()}>
+                        Concluir
+                      </button>
                     </S.ButtonContainer>
                   </>
                 )}

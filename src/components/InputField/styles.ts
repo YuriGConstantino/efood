@@ -18,14 +18,16 @@ export const InputField = styled.div<InputGroup>`
     height: 32px;
     padding: 0 8px;
     border: 1px solid ${colors.beige};
-
-    &.error {
-      border: 3px solid red;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      display: none;
+      -webkit-appearance: none;
+      margin: 0;
     }
   }
   small {
     display: block;
-    margin: 8px 0;
+    margin-top: 4px;
     font-size: 10px;
   }
 `
