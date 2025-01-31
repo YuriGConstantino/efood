@@ -1,5 +1,4 @@
 import { RestaurantDishesCard } from '../../components/RestaurantMenu'
-import { Cardapio } from '../../pages/Home'
 import * as S from './styles'
 
 type Props = {

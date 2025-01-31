@@ -1,4 +1,3 @@
-import { Restaurants } from '../../pages/Home'
 import * as S from './styles'
 
 type Props = {
