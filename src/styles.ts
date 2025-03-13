@@ -7,6 +7,12 @@ export const colors = {
   blackOpacity: '#040404a3'
 }
 
+export const device = {
+  mobile: '768px',
+  tablet: '1024px',
+  laptop: '1440px'
+}
+
 export const GlobalStyle = createGlobalStyle`
   *{
     margin: 0;
@@ -25,6 +31,11 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     margin: 0 auto;
 
+    @media screen and (max-width: 768px) {
+      max-width: 768px;
+      width: 100%;
+      margin: 0 auto;
+    }
   }
 
   .load {

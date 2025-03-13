@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { colors, device } from '../../styles'
 
 export const Card = styled.div`
   display: flex;
@@ -17,6 +17,11 @@ export const Card = styled.div`
     margin: 0 0 8px 8px;
     cursor: pointer;
     text-decoration: none;
+  }
+
+  @media screen and (max-width: ${device.mobile}) {
+    width: 100%;
+    max-width: 300px;
   }
 `
 export const Image = styled.img`

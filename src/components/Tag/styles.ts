@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { colors, device } from '../../styles'
 import { Props } from '.'
 
 export const TagContainer = styled.div<Props>`
@@ -10,4 +10,8 @@ export const TagContainer = styled.div<Props>`
   margin: 8px;
   padding: 4px 6px;
   margin-right: 8px;
+
+  @media screen and (max-width: ${device.mobile}) {
+    font-size: 12px;
+  }
 `
