@@ -1,3 +1,4 @@
+import { device } from './../../styles'
 import styled from 'styled-components'
 import { colors } from '../../styles'
 
@@ -22,6 +23,11 @@ export const RestaurantMenuBanner = styled.div`
 
     p {
       font-weight: 100;
+    }
+
+    @media screen and (max-width: ${device.mobile}),
+      screen and (max-width: ${device.tablet}) {
+      padding: 32px;
     }
   }
 `

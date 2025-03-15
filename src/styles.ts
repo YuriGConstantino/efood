@@ -8,7 +8,7 @@ export const colors = {
 }
 
 export const device = {
-  mobile: '768px',
+  mobile: '600px',
   tablet: '1024px',
   laptop: '1440px'
 }
@@ -30,12 +30,6 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 1024px;
     width: 100%;
     margin: 0 auto;
-
-    @media screen and (max-width: 768px) {
-      max-width: 768px;
-      width: 100%;
-      margin: 0 auto;
-    }
   }
 
   .load {

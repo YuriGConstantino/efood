@@ -8,7 +8,7 @@ type Props = {
 export const RestaurentMenu = ({ cardapio }: Props) => {
   return (
     <>
-      <S.PerfilesContainer className="container">
+      <S.MenuContainer className="container">
         {cardapio.map((cardapio) => (
           <RestaurantDishesCard
             key={cardapio.id}
@@ -20,7 +20,7 @@ export const RestaurentMenu = ({ cardapio }: Props) => {
             porcao={cardapio.porcao}
           />
         ))}
-      </S.PerfilesContainer>
+      </S.MenuContainer>
     </>
   )
 }

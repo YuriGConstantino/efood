@@ -15,4 +15,8 @@ export const List = styled.ul`
     flex-direction: column;
     align-items: center;
   }
+
+  @media screen and (max-width: ${device.tablet}) {
+    padding: 0px 50px;
+  }
 `

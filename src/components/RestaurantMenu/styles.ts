@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { colors, device } from '../../styles'
 import { Button } from '../Button'
 
 export const DishesCard = styled.div`
@@ -8,10 +8,13 @@ export const DishesCard = styled.div`
   background-color: ${colors.red};
   padding: 8px;
   color: ${colors.beige};
+  @media screen and (max-width: ${device.mobile}) {
+  }
 `
 export const DishImage = styled.img`
-  width: 304px;
+  object-fit: cover;
   height: 168px;
+  width: 100%;
 `
 
 export const DishName = styled.h3`
@@ -22,6 +25,9 @@ export const DishName = styled.h3`
 export const DishDescription = styled.p`
   font-size: 14px;
   margin: 8px 0;
+  @media screen and (max-width: ${device.mobile}) {
+    margin: 16px 0;
+  }
 `
 export const DishButton = styled(Button)`
   background-color: ${colors.beige};
@@ -59,6 +65,16 @@ export const Modal = styled.div`
     height: 280px;
     object-fit: cover;
   }
+
+  @media screen and (max-width: ${device.mobile}) {
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px 16px;
+    > img {
+      width: 100%;
+      height: 200px;
+    }
+  }
 `
 
 export const ModalInfos = styled.div`
@@ -66,6 +82,10 @@ export const ModalInfos = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
+
+  @media screen and (max-width: ${device.mobile}) {
+    gap: 16px;
+  }
 `
 
 export const ModalClose = styled.img`

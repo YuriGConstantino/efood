@@ -25,6 +25,9 @@ export const HeaderContainer = styled.div`
   .buttonTxt {
     font-size: 18px;
     cursor: pointer;
+    @media screen and (max-width: ${device.mobile}) {
+      font-size: 16px;
+    }
   }
   p {
     font-size: 36px;
@@ -39,6 +42,9 @@ export const HeaderContainer = styled.div`
       line-height: 30px;
     }
   }
+  @media screen and (max-width: ${device.tablet}) {
+    padding: 32px 16px;
+  }
 `
 
 export const HeaderContent = styled.div`
@@ -48,4 +54,11 @@ export const HeaderContent = styled.div`
   align-items: center;
   bottom: 40px;
   position: relative;
+
+  @media screen and (max-width: ${device.mobile}) {
+    bottom: 0;
+    margin-top: 24px;
+    font-size: 16px;
+    padding: 0 10px;
+  }
 `
