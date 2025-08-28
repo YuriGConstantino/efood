@@ -36,7 +36,7 @@ type PurchasePayload = {
 
 const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://fake-api-tau.vercel.app/api/efood/'
+    baseUrl: 'https://ebac-fake-api.vercel.app/api/efood'
   }),
   endpoints: (builder) => ({
     getRestaurantsList: builder.query<Restaurants[], void>({
