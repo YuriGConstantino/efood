@@ -5,6 +5,7 @@ import { RestaurentMenu } from '../../containers/RestaurentMenuList'
 import { useGetRestaurantMenuQuery } from '../../services/api'
 import { MoonLoader } from 'react-spinners'
 import { colors } from '../../styles'
+import { Footer } from '../../containers/Footer'
 
 export const RestaurantPerfil = () => {
   const { id } = useParams()
@@ -19,6 +20,7 @@ export const RestaurantPerfil = () => {
         {restaurantPerfil && (
           <RestaurentMenu cardapio={restaurantPerfil.cardapio} />
         )}
+        <Footer />
       </>
     )
   }

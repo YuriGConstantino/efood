@@ -4,6 +4,7 @@ import { Header } from '../../containers/Header'
 import { useGetRestaurantsListQuery } from '../../services/api'
 import { MoonLoader } from 'react-spinners'
 import { colors } from '../../styles'
+import { Footer } from '../../containers/Footer'
 
 export const Home = () => {
   const { data: restaurants } = useGetRestaurantsListQuery()
@@ -15,6 +16,7 @@ export const Home = () => {
         <div className="container">
           <RestaurantList restaurant={restaurants} />
         </div>
+        <Footer />
       </>
     )
   }

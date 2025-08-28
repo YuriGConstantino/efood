@@ -12,7 +12,6 @@ function App() {
       <BrowserRouter>
         <GlobalStyle />
         <RoutePath />
-        <Footer />
       </BrowserRouter>
     </Provider>
   )
